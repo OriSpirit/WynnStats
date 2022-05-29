@@ -31,13 +31,12 @@ public class MainMod
     {
         try {
             ConfigSpirit.getConfig();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
             try {
                 ConfigSpirit.writeConfig();
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-            e.printStackTrace();
         }
         if(guildLists.equals(Collections.emptyList())) {
             CompletableFuture.supplyAsync(() -> HttpSpirit.get("https://api.wynncraft.com/public_api.php?action=guildList")).thenAccept(ScannerSpirit::passGuild);

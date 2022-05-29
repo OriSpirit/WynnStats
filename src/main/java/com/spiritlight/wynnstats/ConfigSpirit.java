@@ -1,6 +1,5 @@
 package com.spiritlight.wynnstats;
 
-import akka.Main;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -16,7 +15,7 @@ public class ConfigSpirit {
         if (config.exists()) {
             JsonParser parser = new JsonParser();
             JsonObject jsonObject = (JsonObject)parser.parse(new FileReader("config/WynnStats.json"));
-            for (JsonElement element : jsonObject.getAsJsonArray("guildLists")) {
+            for (JsonElement element : jsonObject.getAsJsonArray("guilds")) {
                 MainMod.guildLists.add(element.getAsString());
             }
             // a = String.valueOf(jsonObject.get("g")).replace("\"", ""); // Funny bug!
