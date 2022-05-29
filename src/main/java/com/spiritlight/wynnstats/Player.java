@@ -7,7 +7,7 @@ public class Player {
     private final boolean playerOnline;
     private final int deaths;
     private final String worldAt;
-    private final int playTime;
+    private final double playTime;
     private final int mobsKilled;
     private final int growthValue;
     private final int dungeonsCompleted;
@@ -25,7 +25,7 @@ public class Player {
     }
 
     public Player(String playerName, String className, int gamemode, boolean playerOnline,
-                  int deaths, String worldAt, int playTime, int mobsKilled, int growthValue, int dungeonsCompleted, int questCompleted, int discoveries,
+                  int deaths, String worldAt, double playTime, int mobsKilled, int growthValue, int dungeonsCompleted, int questCompleted, int discoveries,
                   ProfessionStat professionStat, RaidStat raidStat) {
         this.playerName = playerName;
         this.className = className;
@@ -55,7 +55,7 @@ public class Player {
         return worldAt;
     }
 
-    public int getPlayTime() {
+    public double getPlayTime() {
         return playTime;
     }
 

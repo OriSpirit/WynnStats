@@ -42,7 +42,6 @@ public class statCommand extends CommandBase {
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         if(args.length == 0) {
             AnnouncerSpirit.send("Usage: /stat [player/guild] <params>");
-            AnnouncerSpirit.send("Refresh guild list via: /stat refreshGuilds");
             return;
         }
         switch(args[0].toLowerCase(Locale.ROOT)) {
@@ -56,6 +55,7 @@ public class statCommand extends CommandBase {
                     List<TextComponentString> message;
                     boolean exists = false;
                     if (MainMod.playerMap.containsKey(args[1])) {
+                        AnnouncerSpirit.send("Using local cache for this player...");
                         message = MainMod.playerMap.get(args[1]);
                         exists = true;
                     } else {
@@ -74,22 +74,12 @@ public class statCommand extends CommandBase {
             case "guild":
                 AnnouncerSpirit.send("Under work.");
                 break;
-            case "refreshguilds":
-                AnnouncerSpirit.send("Refreshing guild stats...");
-                CompletableFuture.supplyAsync(() -> HttpSpirit.get("https://api.wynncraft.com/public_api.php?action=guildList")).thenAccept(ScannerSpirit::passGuild);
         }
     }
 
     @Override
     public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
         if(args.length == 0) return a_0;
-        switch(args[0].toLowerCase(Locale.ROOT)) {
-            case "player":
-                return MainMod.onlinePlayers;
-            case "guild":
-                return MainMod.guildLists;
-            default:
-                return Collections.emptyList();
-        }
+        return Collections.emptyList();
     }
 }

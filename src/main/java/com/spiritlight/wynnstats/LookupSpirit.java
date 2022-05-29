@@ -85,27 +85,27 @@ public class LookupSpirit {
         // Diff Structure: 0playtime, questCompleted, 2fa+xp, 4fi+xp, 6wo+xp, 8mi+xp, 10co+xp, 12 growth, 13mobs, 14chests
         // Object structure: 0world, name, 2playtime, questCompleted, [4]farming+xp, 6fishing+xp, 8woodcutting+xp, 10mining+xp
         // 12combat+xp, [14]iteratedProfessionsList, mode, username, [17]deaths, mobsKilled, chestsOpened
-        return "Class ID: " + player.getClassName() + " " + mode(player.getGamemode(), player.getDeaths()) +
-                "\nLevels: ⬡" + color(player.getProfessionStat().getCombat()) +
+        return "[§" + (player.isPlayerOnline() ? "a" : "7") + "•] Class ID: " + player.getClassName() + " " + mode(player.getGamemode(), player.getDeaths()) +
+                "\nLevels: ⬡ " + color(player.getProfessionStat().getCombat()) +
                 "§7 Ⓒ" + color(professionStat.getWoodcutting()) +
                 "§7 Ⓑ" + color(professionStat.getMining()) +
                 "§7 Ⓙ" + color(professionStat.getFarming()) +
                 "§7 Ⓚ" + color(professionStat.getFishing()) +
-                "\n§7The Canyon Colossus §rRaids: " +
-                raid.getTccRaids() +
-                "\n§eOrphion's Nexus of Light §rRaids: " +
-                raid.getOnolRaids() +
-                "\n§2Nest of the Grootslangs §rRaids: " +
-                raid.getNotgRaids() +
-                "\n§rPlayer total raids: " +
-                color(raid.getTotalRaids()) +
-                "\n§6§bῼ §rPlayer dungeon completions: " +
-                color(player.getDungeonsCompleted()) +
-                "\n§e⬤§r Playtime: " + player.getPlayTime()/60 + " hours" +
+                "\n§e⬤§r Playtime: " + 4.7*player.getPlayTime()/60 + " hours" +
                 "\n§rⒺ§r Quests Completed: " + color(player.getQuestCompleted()) +
                 "\n§c⚔§r Mobs Killed: " + player.getMobsKilled() +
                 "\n§6Ⓓ§r Growth Value: " + player.getGrowthValue() +
                 "\n§r✎ Discoveries: " + player.getDiscoveries() +
+                "\n§6§bῼ §rPlayer dungeon completions: " +
+                color(player.getDungeonsCompleted()) +
+                "\n§rPlayer total raids: " +
+                color(raid.getTotalRaids()) +
+                "\n§7The Canyon Colossus §rRaids: " +
+                color(raid.getTccRaids()) +
+                "\n§eOrphion's Nexus of Light §rRaids: " +
+                color(raid.getOnolRaids()) +
+                "\n§2Nest of the Grootslangs §rRaids: " +
+                color(raid.getNotgRaids()) +
                 "\n§6Click to open " + player.getPlayerName() + "'s " + player.getClassName() + " stat page!";
     }
     // Object structure: world, name, playtime, questCompleted,

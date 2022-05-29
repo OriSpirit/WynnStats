@@ -9,7 +9,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -20,8 +19,8 @@ public class MainMod
     public static final String MODID = "wynnstats";
     public static final String NAME = "WynnStats";
     public static final String VERSION = "1.0";
-    public static final List<String> guildLists = new ArrayList<>();
-    public static final List<String> onlinePlayers = new ArrayList<>();
+    public static Map<String, String> guildMaps = new HashMap<>();
+    public static Map<String, List<GuildStat>> cachedGuildInfo = new HashMap<>();
     public static final Map<String, List<TextComponentString>> playerMap = new HashMap<>();
     private static boolean initDone = false;
     static boolean debug = false;
@@ -38,9 +37,6 @@ public class MainMod
                 ex.printStackTrace();
             }
         }
-        if(guildLists.equals(Collections.emptyList())) {
-            CompletableFuture.supplyAsync(() -> HttpSpirit.get("https://api.wynncraft.com/public_api.php?action=guildList")).thenAccept(ScannerSpirit::passGuild);
-        }
         ClientCommandHandler.instance.registerCommand(new statCommand());
     }
 
@@ -56,8 +52,8 @@ public class MainMod
     public static void init() {
         // Managed: Schedule time
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(scanPlayers, 0, 5, TimeUnit.MINUTES);
+        scheduler.scheduleAtFixedRate(scanPlayers, 0, 10, TimeUnit.MINUTES);
     }
 
-    private static final Runnable scanPlayers = (ScannerSpirit::parseOnline);
+    private static final Runnable scanPlayers = (playerMap::clear);
 }
