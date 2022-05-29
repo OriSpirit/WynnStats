@@ -64,12 +64,26 @@ public class JSONSpirit {
     }
 
     private static RaidStat parseRaid(JSONObject j) {
-        final JSONArray array = j.getJSONArray("list");
-        int NOTGCompletions = array.getJSONObject(0).getInt("completed");
-        int TCCCompletions = array.getJSONObject(1).getInt("completed");
-        int ONOLCompletions = array.getJSONObject(2).getInt("completed");
-        int total = NOTGCompletions + TCCCompletions + ONOLCompletions;
-        return new RaidStat(ONOLCompletions, TCCCompletions, NOTGCompletions, total);
+        JSONArray array = j.getJSONArray("list");
+        int total = j.getInt("completed");
+        int nol = 0, tcc = 0, notg = 0;
+        for(int i=0; i<array.length(); i++) {
+            JSONObject o = array.getJSONObject(i);
+            switch(o.getString("name")) {
+                case "The Canyon Colossus":
+                    tcc = o.getInt("completed");
+                    break;
+                case "Nest of the Grootslangs":
+                    notg = o.getInt("completed");
+                    break;
+                case "Orphion's Nexus of Light":
+                    nol = o.getInt("completed");
+                    break;
+                default:
+                    break;
+            }
+        }
+        return new RaidStat(nol, tcc, notg, total);
     }
 
     private static int automode(JSONObject j) {

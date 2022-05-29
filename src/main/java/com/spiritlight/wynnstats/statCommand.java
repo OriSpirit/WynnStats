@@ -34,6 +34,11 @@ public class statCommand extends CommandBase {
     }
 
     @Override
+    public List<String> getAliases() {
+        return Collections.singletonList("stats");
+    }
+
+    @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         if(args.length == 0) {
             AnnouncerSpirit.send("Usage: /stat [player/guild] <params>");

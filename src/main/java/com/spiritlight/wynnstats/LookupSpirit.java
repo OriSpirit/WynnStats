@@ -86,7 +86,7 @@ public class LookupSpirit {
         // Object structure: 0world, name, 2playtime, questCompleted, [4]farming+xp, 6fishing+xp, 8woodcutting+xp, 10mining+xp
         // 12combat+xp, [14]iteratedProfessionsList, mode, username, [17]deaths, mobsKilled, chestsOpened
         return "Class ID: " + player.getClassName() + " " + mode(player.getGamemode(), player.getDeaths()) +
-                "\n" + color(player.getProfessionStat().getCombat()) +
+                "\nLevels: ⬡" + color(player.getProfessionStat().getCombat()) +
                 "§7 Ⓒ" + color(professionStat.getWoodcutting()) +
                 "§7 Ⓑ" + color(professionStat.getMining()) +
                 "§7 Ⓙ" + color(professionStat.getFarming()) +
