@@ -95,11 +95,11 @@ public class LookupSpirit {
                 raid.getTccRaids() +
                 "\n§eOrphion's Nexus of Light §rRaids: " +
                 raid.getOnolRaids() +
-                "\n§2Nest of the Grootslangs §rRaids:" +
+                "\n§2Nest of the Grootslangs §rRaids: " +
                 raid.getNotgRaids() +
-                "\n§rPlayer total raids:" +
+                "\n§rPlayer total raids: " +
                 color(raid.getTotalRaids()) +
-                "\n§6§bῼ§rPlayer dungeon completions: " +
+                "\n§6§bῼ §rPlayer dungeon completions: " +
                 color(player.getDungeonsCompleted()) +
                 "\n§e⬤§r Playtime: " + player.getPlayTime()/60 + " hours" +
                 "\n§rⒺ§r Quests Completed: " + color(player.getQuestCompleted()) +
@@ -117,7 +117,7 @@ public class LookupSpirit {
         String classn = player.getClassName().replaceAll("([0-9])", "").substring(0, 2);
         classn = classn.substring(0, 1).toUpperCase() + classn.charAt(1);
         final ProfessionStat professionStat = player.getProfessionStat();
-        return  "§r[WC" + player.getWorldAt() + "] [⬡"
+        return  "§r[" + player.getWorldAt() + "] [⬡"
                 + color(player.getProfessionStat().getCombat())
                 + "§7/Ⓒ" + color(professionStat.getWoodcutting())
                 + "§7/Ⓑ" + color(professionStat.getMining())

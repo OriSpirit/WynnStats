@@ -33,7 +33,7 @@ public class JSONSpirit {
         JSONObject meta = index.getJSONObject("meta");
         String name = index.getString("username");
         Object world = meta.getJSONObject("location").get("server"); // String object
-        world = (world == JSONObject.NULL ? "[Off]" : world);
+        world = (world == JSONObject.NULL ? "Offline" : world);
         JSONArray classes = index.getJSONArray("classes");
         for(int i=0; i<classes.length(); i++) {
             JSONObject accessClass = classes.getJSONObject(i);
