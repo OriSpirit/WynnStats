@@ -10,10 +10,7 @@ import net.minecraft.util.text.TextComponentString;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 @MethodsReturnNonnullByDefault @ParametersAreNonnullByDefault
@@ -50,10 +47,19 @@ public class statCommand extends CommandBase {
                     return;
                 }
                 AnnouncerSpirit.send("Checking player " + args[1] + "...");
-                List<TextComponentString> message = LookupSpirit.searchPlayer(args[1]);
+                List<TextComponentString> message;
+                boolean exists = false;
+                if(MainMod.playerMap.containsKey(args[1]))  {
+                    message = MainMod.playerMap.get(args[1]);
+                    exists = true;
+                } else {
+                    message = LookupSpirit.searchPlayer(args[1]);
+                }
                 if(message == null) {
                     AnnouncerSpirit.send(ERR_REQUEST_FAIL);
                     return;
+                } else if (!exists) {
+                    MainMod.playerMap.put(args[1], new ArrayList<>(message));
                 }
                 for(TextComponentString iTextComponents : message)
                     AnnouncerSpirit.send(iTextComponents);

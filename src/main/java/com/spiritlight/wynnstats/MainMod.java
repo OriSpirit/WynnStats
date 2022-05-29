@@ -1,14 +1,13 @@
 package com.spiritlight.wynnstats;
 
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -20,8 +19,9 @@ public class MainMod
     public static final String MODID = "wynnstats";
     public static final String NAME = "WynnStats";
     public static final String VERSION = "1.0";
-    public static List<String> guildLists = new ArrayList<>();
-    public static List<String> onlinePlayers = new ArrayList<>();
+    public static final List<String> guildLists = new ArrayList<>();
+    public static final List<String> onlinePlayers = new ArrayList<>();
+    public static final Map<String, List<TextComponentString>> playerMap = new HashMap<>();
     private static boolean initDone = false;
     static boolean debug = false;
 

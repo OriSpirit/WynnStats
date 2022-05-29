@@ -8,6 +8,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class ScannerSpirit {
     static void parseOnline() {
+        MainMod.playerMap.clear();
         CompletableFuture.supplyAsync(() -> HttpSpirit.get("https://api.wynncraft.com/public_api.php?action=onlinePlayers")).thenAccept(ScannerSpirit::pass);
     }
 
