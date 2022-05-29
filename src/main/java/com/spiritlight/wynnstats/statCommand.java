@@ -46,23 +46,25 @@ public class statCommand extends CommandBase {
                     AnnouncerSpirit.send(ERR_INVALID_ARGS);
                     return;
                 }
-                AnnouncerSpirit.send("Checking player " + args[1] + "...");
-                List<TextComponentString> message;
-                boolean exists = false;
-                if(MainMod.playerMap.containsKey(args[1]))  {
-                    message = MainMod.playerMap.get(args[1]);
-                    exists = true;
-                } else {
-                    message = LookupSpirit.searchPlayer(args[1]);
-                }
-                if(message == null) {
-                    AnnouncerSpirit.send(ERR_REQUEST_FAIL);
-                    return;
-                } else if (!exists) {
-                    MainMod.playerMap.put(args[1], new ArrayList<>(message));
-                }
-                for(TextComponentString iTextComponents : message)
-                    AnnouncerSpirit.send(iTextComponents);
+                CompletableFuture.runAsync(() -> {
+                    AnnouncerSpirit.send("Checking player " + args[1] + "...");
+                    List<TextComponentString> message;
+                    boolean exists = false;
+                    if (MainMod.playerMap.containsKey(args[1])) {
+                        message = MainMod.playerMap.get(args[1]);
+                        exists = true;
+                    } else {
+                        message = LookupSpirit.searchPlayer(args[1]);
+                    }
+                    if (message == null) {
+                        AnnouncerSpirit.send(ERR_REQUEST_FAIL);
+                        return;
+                    } else if (!exists) {
+                        MainMod.playerMap.put(args[1], new ArrayList<>(message));
+                    }
+                    for (TextComponentString iTextComponents : message)
+                        AnnouncerSpirit.send(iTextComponents);
+                });
                 break;
             case "guild":
                 AnnouncerSpirit.send("Under work.");

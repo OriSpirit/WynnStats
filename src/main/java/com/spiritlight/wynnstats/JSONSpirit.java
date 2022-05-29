@@ -76,10 +76,9 @@ public class JSONSpirit {
         return (j.getBoolean("hardcore") ? 8 : 0) + (j.getBoolean("ironman") ? 2 : 0) + (j.getBoolean("craftsman") ? 4 : 0)  + (j.getBoolean("hunted") ? 1 : 0);
     }
 
-    private static int calcGrowth(JSONObject j) {
+    private static int calcGrowth(JSONObject professionBase) {
         int growth = 0;
         String[] professions = new String[]{"farming", "fishing", "woodcutting", "mining", "alchemism", "armouring", "combat", "cooking", "jeweling", "scribing", "tailoring", "weaponsmithing", "woodworking"};
-        JSONObject professionBase = j.getJSONObject("professions");
         for (String profession : professions) {
             Object o = professionBase.getJSONObject(profession).get("xp");
             double xp = (o == null || o == JSONObject.NULL ? 0 : professionBase.getJSONObject(profession).getDouble("xp"));
