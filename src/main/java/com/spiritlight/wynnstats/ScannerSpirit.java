@@ -7,19 +7,19 @@ import org.json.JSONObject;
 import java.util.concurrent.CompletableFuture;
 
 public class ScannerSpirit {
-    static void parseOnline() {
+    public static void parseOnline() {
         MainMod.playerMap.clear();
         CompletableFuture.supplyAsync(() -> HttpSpirit.get("https://api.wynncraft.com/public_api.php?action=onlinePlayers")).thenAccept(ScannerSpirit::pass);
     }
 
-    static void passGuild(String value) {
+    public static void passGuild(String value) {
         JSONArray a = new JSONArray(value);
         for(int i=0; i<a.length(); i++) {
             MainMod.guildLists.add(a.getString(i));
         }
         AnnouncerSpirit.send("Successfully scanned guilds.");
     }
-    static void pass(String value) {
+    private static void pass(String value) {
         JSONObject o = new JSONObject(value);
         int i = 1;
         while(i < o.length()+50) { // Lenient level 50 cutoffs

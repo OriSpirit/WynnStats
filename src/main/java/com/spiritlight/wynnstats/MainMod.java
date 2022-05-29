@@ -1,6 +1,7 @@
 package com.spiritlight.wynnstats;
 
 import net.minecraft.util.text.TextComponentString;
+import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -41,6 +42,7 @@ public class MainMod
         if(guildLists.equals(Collections.emptyList())) {
             CompletableFuture.supplyAsync(() -> HttpSpirit.get("https://api.wynncraft.com/public_api.php?action=guildList")).thenAccept(ScannerSpirit::passGuild);
         }
+        ClientCommandHandler.instance.registerCommand(new statCommand());
     }
 
     @EventHandler
