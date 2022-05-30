@@ -106,7 +106,9 @@ public class statCommand extends CommandBase {
             case "_showguildpage":
                 if(args.length < 3) break;
                 try {
-                    pagingSpirit.fetchPage(MainMod.cachedGuildInfo.get(args[1]), Integer.parseInt(args[2]), args[1]);
+                    String[] nameArr = Arrays.copyOfRange(args, 2, args.length);
+                    String guild = String.join(" ", nameArr);
+                    pagingSpirit.fetchPage(MainMod.cachedGuildInfo.get(guild), Integer.parseInt(args[1]), guild);
                 } catch (NumberFormatException ignored) {}
                 break;
         }

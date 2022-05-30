@@ -20,9 +20,9 @@ public class PagingSpirit {
         final TextComponentString PAGE_END = new TextComponentString("§7[>]§r");
         final TextComponentString SPLITTER = new TextComponentString(" --- " + beginIndex + "/" + size + " --- ");
         ITextComponent end;
-        PAGE_BACK.setStyle(new Style().setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/stat _showGuildPage " + guild + " " + (beginIndex - 10)))
+        PAGE_BACK.setStyle(new Style().setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/stat _showGuildPage " + (beginIndex - 10) + guild))
                 .setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("<< Last Page"))));
-        PAGE_NEXT.setStyle(new Style().setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/stat _showGuildPage " + guild + " " + (beginIndex + 10)))
+        PAGE_NEXT.setStyle(new Style().setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/stat _showGuildPage " + (beginIndex + 10) + guild))
                 .setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("Next Page >>"))));
         end = (beginIndex - MAX_INDEX > 1 ? PAGE_BACK : PAGE_START).appendSibling(SPLITTER).appendSibling((beginIndex + MAX_INDEX < size ? PAGE_NEXT : PAGE_END));
         AnnouncerSpirit.send(messages.get(0));
