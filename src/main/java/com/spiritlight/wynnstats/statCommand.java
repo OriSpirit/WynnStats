@@ -1,6 +1,8 @@
 package com.spiritlight.wynnstats;
 
 import mcp.MethodsReturnNonnullByDefault;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -113,6 +115,28 @@ public class statCommand extends CommandBase {
     @Override
     public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
         if(args.length == 0) return a_0;
+        if(args[0].toLowerCase(Locale.ROOT).equals("player")) {
+            try {
+                Collection<NetworkPlayerInfo> players = Minecraft.getMinecraft().getConnection().getPlayerInfoMap();
+                List<String> playerNames = new ArrayList<>();
+                if(args.length == 2) {
+                    for (NetworkPlayerInfo info : players) {
+                        String name = info.getGameProfile().getName().toLowerCase(Locale.ROOT);
+                        if(name.matches("^[A-Za-z0-9_]+$") && name.startsWith(args[1].toLowerCase(Locale.ROOT)))
+                            playerNames.add(info.getGameProfile().getName());
+                    }
+                } else {
+                    for (NetworkPlayerInfo info : players) {
+                        if(info.getGameProfile().getName().matches("^[A-Za-z0-9_]+$"))
+                            playerNames.add(info.getGameProfile().getName());
+                    }
+                }
+                return playerNames;
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                return Collections.emptyList();
+            }
+        }
         return Collections.emptyList();
     }
 }
