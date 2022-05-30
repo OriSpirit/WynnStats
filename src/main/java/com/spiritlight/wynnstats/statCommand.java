@@ -40,6 +40,7 @@ public class statCommand extends CommandBase {
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+        PagingSpirit pagingSpirit = new PagingSpirit();
         if(args.length == 0) {
             AnnouncerSpirit.send("Usage: /stat [player/guild] <params>");
             return;
@@ -72,7 +73,34 @@ public class statCommand extends CommandBase {
                 });
                 break;
             case "guild":
-                AnnouncerSpirit.send("Under work.");
+                if(args.length < 2) {
+                    AnnouncerSpirit.send(ERR_INVALID_ARGS);
+                    return;
+                }
+                CompletableFuture.runAsync(() -> {
+                    String guild = args[1];
+                    AnnouncerSpirit.send("Checking guild " + args[1] + "...");
+                    List<TextComponentString> message;
+                    if(MainMod.guildMaps.containsKey(args[1])) {
+                        guild = MainMod.guildMaps.get(args[1]);
+                    }
+                    if(MainMod.cachedGuildInfo.containsKey(guild)) {
+                        message = MainMod.cachedGuildInfo.get(guild);
+                    } else {
+                        message = LookupSpirit.searchGuild(guild);
+                    }
+                    if(message == null) {
+                        AnnouncerSpirit.send("This guild doesn't exist.");
+                        return;
+                    }
+                    pagingSpirit.fetchPage(message, 1, guild); // Safely assume there are at least 1 member in guild
+                });
+                break;
+            case "_showguildpage":
+                if(args.length < 3) break;
+                try {
+                    pagingSpirit.fetchPage(MainMod.cachedGuildInfo.get(args[1]), Integer.parseInt(args[2]), args[1]);
+                } catch (NumberFormatException ignored) {}
                 break;
         }
     }

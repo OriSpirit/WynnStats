@@ -1,6 +1,7 @@
 package com.spiritlight.wynnstats;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.event.HoverEvent;
@@ -27,6 +28,14 @@ public class AnnouncerSpirit {
     }
 
     public static void send(TextComponentString message) {
+        try {
+            Minecraft.getMinecraft().player.sendMessage(message);
+        } catch (NullPointerException ignored) {
+            System.out.println("Caught NullPointerException whilst attempting to send a message, assuming player does not yet exist.");
+        }
+    }
+
+    public static void send(ITextComponent message) {
         try {
             Minecraft.getMinecraft().player.sendMessage(message);
         } catch (NullPointerException ignored) {

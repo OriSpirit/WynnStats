@@ -11,6 +11,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LookupSpirit {
+    public static final String guildFetchUrl = "https://wynncraft.com/stats/guild/";
+    public static List<TextComponentString> searchGuild(String guild) {
+        final List<TextComponentString> message = new ArrayList<>();
+        //§
+        try {
+            CompleteGuildData data = ScannerSpirit.fetchGuild(guild);
+            GuildInfo info = data.getInfo();
+            List<GuildStat> stat = data.getStats();
+            Style style;
+            TextComponentString s = new TextComponentString("§r" + info.getGuildName() + " §7" + info.getPrefix() + "§7- §rLevel §a" + info.getLevel() + " §7(§r" + info.getTerritories() + "§7 territories)");
+            style = s.getStyle();
+            style.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("§6Click to open this guild's stat page!")))
+                    .setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, guildFetchUrl + info.getGuildName()));
+            message.add(s);
+            for(GuildStat guildStat : stat) {
+                TextComponentString str = new TextComponentString(
+                        "§3[" + guildStat.getPosition() + "] §b" + guildStat.getPlayerName()
+                );
+                style = str.getStyle();
+                TextComponentString msg = new TextComponentString(
+                        "§3" + guildStat.getPosition() + " §b" + guildStat.getPlayerName() + "\n" +
+                                "§rJoined at " + guildStat.getJoinDate() + " §7- §rContributed §a" + guildStat.getContributedXP() + " §7XP" + "\n" +
+                                "§6Click to check this player's stats!"
+                );
+                style.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, msg));
+                style.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/stat player " + guildStat.getPlayerName()));
+                message.add(str);
+            }
+            if(!MainMod.cachedGuildInfo.containsKey(guild)) {
+                MainMod.cachedGuildInfo.put(guild, message);
+            }
+            if(!MainMod.guildMaps.containsKey(guild)) {
+                MainMod.guildMaps.put(info.getPrefix(), info.getGuildName());
+                AnnouncerSpirit.send("Mapped " + info.getPrefix() + " to " + info.getGuildName() + ". You may use their prefix next time.");
+                ConfigSpirit.updateConfig();
+            }
+            return message;
+
+        } catch (NullPointerException e) {
+            AnnouncerSpirit.sendException(e);
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static List<TextComponentString> searchPlayer(String player) {
         try {
             ArrayList<TextComponentString> s = new ArrayList<>();

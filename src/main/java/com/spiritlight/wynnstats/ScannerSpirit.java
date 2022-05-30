@@ -12,7 +12,7 @@ import java.util.List;
 public class ScannerSpirit {
     // Execute this in async or free lag incoming
     @Nullable
-    public static List<GuildStat> fetchGuild(@Nonnull String guildName) {
+    public static CompleteGuildData fetchGuild(@Nonnull String guildName) {
         List<GuildStat> data = new ArrayList<>();
         String json = HttpSpirit.get("https://api.wynncraft.com/public_api.php?action=guildStats&command=" + guildName);
         JSONObject j = new JSONObject(json);
@@ -20,6 +20,7 @@ public class ScannerSpirit {
             j.getJSONObject("error");
             return null;
         } catch (JSONException ignored) {}
+        GuildInfo info = new GuildInfo(j.getString("name"), j.getString("prefix"), j.getInt("level"), j.getInt("territories"));
         JSONArray arr = j.getJSONArray("members");
         for(int i=0; i<arr.length(); i++) {
             JSONObject o = arr.getJSONObject(i);
@@ -29,7 +30,7 @@ public class ScannerSpirit {
             long xp = o.getLong("contributed");
             data.add(new GuildStat(name, rank, joinDate, xp));
         }
-        return data;
+        return new CompleteGuildData(info, data);
     }
 
 }
