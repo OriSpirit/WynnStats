@@ -24,7 +24,7 @@ public class ScannerSpirit {
         }
         GuildInfo info = new GuildInfo(j.getString("name"), j.getString("prefix"), j.getInt("level"), j.getInt("territories"));
         JSONArray arr = j.getJSONArray("members");
-        DecimalFormat formatter = new DecimalFormat("#,###.00");
+        DecimalFormat formatter = new DecimalFormat("#,###");
         for (int i = 0; i < arr.length(); i++) {
             JSONObject o = arr.getJSONObject(i);
             String name = o.getString("name");
