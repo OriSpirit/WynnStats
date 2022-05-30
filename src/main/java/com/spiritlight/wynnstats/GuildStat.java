@@ -4,9 +4,9 @@ public class GuildStat {
     private final String playerName;
     private final String position;
     private final String joinDate;
-    private final long contributedXP;
+    private final String contributedXP;
 
-    public GuildStat(String playerName, String position, String joinDate, long contributedXP) {
+    public GuildStat(String playerName, String position, String joinDate, String contributedXP) {
         this.playerName = playerName;
         this.position = position;
         this.joinDate = joinDate;
@@ -25,7 +25,7 @@ public class GuildStat {
         return joinDate;
     }
 
-    public long getContributedXP() {
+    public String getContributedXP() {
         return contributedXP;
     }
 }

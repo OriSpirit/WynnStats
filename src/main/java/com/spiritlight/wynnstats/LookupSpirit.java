@@ -39,10 +39,10 @@ public class LookupSpirit {
                 style.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/stat player " + guildStat.getPlayerName()));
                 message.add(str);
             }
-            if(!MainMod.cachedGuildInfo.containsKey(guild)) {
-                MainMod.cachedGuildInfo.put(guild, message);
+            if(!MainMod.cachedGuildInfo.containsKey(info.getGuildName())) {
+                MainMod.cachedGuildInfo.put(info.getGuildName(), message);
             }
-            if(!MainMod.guildMaps.containsKey(guild)) {
+            if(!MainMod.guildMaps.containsKey(info.getPrefix())) {
                 MainMod.guildMaps.put(info.getPrefix(), info.getGuildName());
                 AnnouncerSpirit.send("Mapped " + info.getPrefix() + " to " + info.getGuildName() + ". You may use their prefix next time.");
                 ConfigSpirit.updateConfig();
@@ -136,7 +136,7 @@ public class LookupSpirit {
                 "§7 Ⓑ" + color(professionStat.getMining()) +
                 "§7 Ⓙ" + color(professionStat.getFarming()) +
                 "§7 Ⓚ" + color(professionStat.getFishing()) +
-                "\n§e⬤§r Playtime: " + 4.7*player.getPlayTime()/60 + " hours" +
+                "\n§e⬤§r Playtime: " + (int)(4.7*player.getPlayTime()/60) + " hours" +
                 "\n§rⒺ§r Quests Completed: " + color(player.getQuestCompleted()) +
                 "\n§c⚔§r Mobs Killed: " + player.getMobsKilled() +
                 "\n§6Ⓓ§r Growth Value: " + player.getGrowthValue() +

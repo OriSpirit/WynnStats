@@ -40,7 +40,7 @@ public class statCommand extends CommandBase {
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-        PagingSpirit pagingSpirit = new PagingSpirit();
+        final PagingSpirit pagingSpirit = new PagingSpirit();
         if(args.length == 0) {
             AnnouncerSpirit.send("Usage: /stat [player/guild] <params>");
             return;
@@ -52,7 +52,7 @@ public class statCommand extends CommandBase {
                     return;
                 }
                 CompletableFuture.runAsync(() -> {
-                    AnnouncerSpirit.send("Checking player " + args[1] + "...");
+                    AnnouncerSpirit.send("§aChecking player §b" + args[1] + "§a...");
                     List<TextComponentString> message;
                     boolean exists = false;
                     if (MainMod.playerMap.containsKey(args[1])) {
@@ -78,11 +78,12 @@ public class statCommand extends CommandBase {
                     return;
                 }
                 CompletableFuture.runAsync(() -> {
-                    String guild = args[1];
-                    AnnouncerSpirit.send("Checking guild " + args[1] + "...");
+                    String[] nameArr = Arrays.copyOfRange(args, 1, args.length);
+                    String guild = String.join(" ", nameArr);
+                    AnnouncerSpirit.send("§aChecking guild §b" + guild + "§a...");
                     List<TextComponentString> message;
-                    if(MainMod.guildMaps.containsKey(args[1])) {
-                        guild = MainMod.guildMaps.get(args[1]);
+                    if(MainMod.guildMaps.containsKey(guild)) {
+                        guild = MainMod.guildMaps.get(guild);
                     }
                     if(MainMod.cachedGuildInfo.containsKey(guild)) {
                         message = MainMod.cachedGuildInfo.get(guild);
@@ -90,10 +91,14 @@ public class statCommand extends CommandBase {
                         message = LookupSpirit.searchGuild(guild);
                     }
                     if(message == null) {
-                        AnnouncerSpirit.send("This guild doesn't exist.");
+                        AnnouncerSpirit.send("§cThis guild doesn't exist.");
                         return;
                     }
                     pagingSpirit.fetchPage(message, 1, guild); // Safely assume there are at least 1 member in guild
+                }).exceptionally(e -> {
+                    AnnouncerSpirit.send("§cThis guild doesn't exist.");
+                    e.printStackTrace();
+                    return null;
                 });
                 break;
             case "_showguildpage":

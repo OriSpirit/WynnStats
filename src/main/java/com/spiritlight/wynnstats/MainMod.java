@@ -19,6 +19,7 @@ public class MainMod
     public static final String MODID = "wynnstats";
     public static final String NAME = "WynnStats";
     public static final String VERSION = "1.0";
+    // Type: PREFIX, name
     public static Map<String, String> guildMaps = new HashMap<>();
     public static Map<String, List<TextComponentString>> cachedGuildInfo = new HashMap<>();
     public static final Map<String, List<TextComponentString>> playerMap = new HashMap<>();

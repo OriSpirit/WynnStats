@@ -2,6 +2,7 @@ package com.spiritlight.wynnstats;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonWriter;
@@ -20,9 +21,8 @@ public class ConfigSpirit {
             JsonParser parser = new JsonParser();
             @SuppressWarnings("UnstableApiUsage")
             Type gsonType = new TypeToken<Map<String, String>>(){}.getType();
-            JsonObject jsonObject = (JsonObject)parser.parse(new FileReader("config/WynnStats.json"));
-            MainMod.guildMaps = gson.fromJson(jsonObject, gsonType);
-            // a = String.valueOf(jsonObject.get("g")).replace("\"", ""); // Funny bug!
+            JsonArray array = (JsonArray)parser.parse(new FileReader("config/WynnStats.json"));
+            MainMod.guildMaps = gson.fromJson(array.get(0), gsonType);
         } else {
             writeConfig();
         }
@@ -31,9 +31,12 @@ public class ConfigSpirit {
     public static void writeConfig() throws IOException {
         final Gson gson = new Gson();
         JsonWriter writer = new JsonWriter(new FileWriter("config/WynnStats.json"));
+        writer.beginArray();
         writer.beginObject();
-        writer.name("guilds").value(gson.toJson(MainMod.guildMaps));
+        writer.name("guildMaps");
+        writer.value(gson.toJson(MainMod.guildMaps));
         writer.endObject();
+        writer.endArray();
         writer.close();
     }
 
