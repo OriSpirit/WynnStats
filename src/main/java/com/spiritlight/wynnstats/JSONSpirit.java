@@ -39,6 +39,7 @@ public class JSONSpirit {
             JSONObject accessClass = classes.getJSONObject(i);
             ProfessionStat prof = parseProf(accessClass.getJSONObject("professions"));
             RaidStat raid = parseRaid(accessClass.getJSONObject("raids"));
+            BasicGuildStat guildStat = parseGuild(index.getJSONObject("guild"));
             String className = accessClass.getString("name");
             int gamemode = automode(accessClass.getJSONObject("gamemode"));
             int playtime = accessClass.getInt("playtime");
@@ -48,11 +49,15 @@ public class JSONSpirit {
             int discoveries = accessClass.getInt("discoveries");
             int growth = calcGrowth(accessClass.getJSONObject("professions"));
             int dungeonsCompleted = accessClass.getJSONObject("dungeons").getInt("completed");
-            data.add(new Player(name, className, gamemode, !(world.equals("[Off]")), deaths,
+            data.add(new Player(name, className, gamemode, !(world.equals("[Offline]")), deaths,
                     (String) world, playtime, mobs, growth, dungeonsCompleted, questCompleted, discoveries,
-                    prof, raid));
+                    prof, raid, guildStat));
         }
         return data; // Looks like {"name":[{"className"... I hope
+    }
+
+    private static BasicGuildStat parseGuild(JSONObject j) {
+        return new BasicGuildStat(j.get("name"), j.get("rank"));
     }
 
     private static ProfessionStat parseProf(JSONObject j) {

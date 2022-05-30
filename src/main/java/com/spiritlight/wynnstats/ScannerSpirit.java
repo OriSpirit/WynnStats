@@ -5,16 +5,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.text.DecimalFormat;
 import java.util.*;
 
+@ParametersAreNonnullByDefault
 public class ScannerSpirit {
     // Execute this in async or free lag incoming
     @Nullable
-    public static CompleteGuildData fetchGuild(@Nonnull String guildName) {
+    public static CompleteGuildData fetchGuild(String guildName) {
         List<GuildStat> data = new ArrayList<>();
-        List<GuildStat> value = new ArrayList<>();
         String json = HttpSpirit.get("https://api.wynncraft.com/public_api.php?action=guildStats&command=" + guildName);
         JSONObject j = new JSONObject(json);
         try {

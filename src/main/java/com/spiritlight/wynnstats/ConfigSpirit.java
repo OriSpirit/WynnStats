@@ -14,6 +14,7 @@ import java.lang.reflect.Type;
 import java.util.Map;
 
 public class ConfigSpirit {
+
     public static void getConfig() throws IOException {
         File config = new File("config/WynnStats.json");
         if (config.exists()) {
@@ -22,7 +23,8 @@ public class ConfigSpirit {
             @SuppressWarnings("UnstableApiUsage")
             Type gsonType = new TypeToken<Map<String, String>>(){}.getType();
             JsonArray array = (JsonArray)parser.parse(new FileReader("config/WynnStats.json"));
-            MainMod.guildMaps = gson.fromJson(array.get(0), gsonType);
+            JsonObject map = (JsonObject) array.get(0);
+            MainMod.guildMaps = gson.fromJson(map.get("guildMaps"), gsonType);
         } else {
             writeConfig();
         }
@@ -30,6 +32,7 @@ public class ConfigSpirit {
 
     public static void writeConfig() throws IOException {
         final Gson gson = new Gson();
+        new FileWriter("config/WynnStats.json", false).close(); // clear content
         JsonWriter writer = new JsonWriter(new FileWriter("config/WynnStats.json"));
         writer.beginArray();
         writer.beginObject();
@@ -39,12 +42,11 @@ public class ConfigSpirit {
         writer.endArray();
         writer.close();
     }
-
     public static void updateConfig() {
-        try {
+        /*try {
             writeConfig();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }

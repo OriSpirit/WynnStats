@@ -15,6 +15,7 @@ public class Player {
     private final int discoveries;
     private final ProfessionStat professionStat;
     private final RaidStat raidStat;
+    private final BasicGuildStat basicGuildStat;
 
     public int getDeaths() {
         return deaths;
@@ -24,9 +25,13 @@ public class Player {
         return gamemode;
     }
 
+    public BasicGuildStat getBasicGuildStat() {
+        return basicGuildStat;
+    }
+
     public Player(String playerName, String className, int gamemode, boolean playerOnline,
                   int deaths, String worldAt, double playTime, int mobsKilled, int growthValue, int dungeonsCompleted, int questCompleted, int discoveries,
-                  ProfessionStat professionStat, RaidStat raidStat) {
+                  ProfessionStat professionStat, RaidStat raidStat, BasicGuildStat basicGuildStat) {
         this.playerName = playerName;
         this.className = className;
         this.gamemode = gamemode;
@@ -41,6 +46,7 @@ public class Player {
         this.discoveries = discoveries;
         this.professionStat = professionStat;
         this.raidStat = raidStat;
+        this.basicGuildStat = basicGuildStat;
     }
 
     public String getPlayerName() {

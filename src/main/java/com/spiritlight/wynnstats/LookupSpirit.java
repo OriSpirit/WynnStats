@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class LookupSpirit {
     public static final String guildFetchUrl = "https://wynncraft.com/stats/guild/";
@@ -63,7 +64,6 @@ public class LookupSpirit {
             List<Player> playerList = JSONSpirit.parse(data);
             if (playerList == null || playerList.isEmpty())
                 return null;
-            //System.out.println("Scan player Array " + j);
             for (Player pl : playerList) {
                 Style style;
                 TextComponentString str = new TextComponentString(displayName(pl));
@@ -130,7 +130,8 @@ public class LookupSpirit {
         // Diff Structure: 0playtime, questCompleted, 2fa+xp, 4fi+xp, 6wo+xp, 8mi+xp, 10co+xp, 12 growth, 13mobs, 14chests
         // Object structure: 0world, name, 2playtime, questCompleted, [4]farming+xp, 6fishing+xp, 8woodcutting+xp, 10mining+xp
         // 12combat+xp, [14]iteratedProfessionsList, mode, username, [17]deaths, mobsKilled, chestsOpened
-        return "[§" + (player.isPlayerOnline() ? "a" : "7") + "•] Class ID: " + player.getClassName() + " " + mode(player.getGamemode(), player.getDeaths()) +
+        return "[§" + (player.isPlayerOnline() ? "a" : "7") + "§l•§r] " + "§r" + player.getPlayerName() + " (" + (player.getBasicGuildStat().isInGuild() ? "§3" + fcuc(player.getBasicGuildStat().getGuildRank()) + " §rof §b" + player.getBasicGuildStat().getGuildIn() : "§7§oNot in guild") + "§r)" +
+                "\nClass ID: " + player.getClassName() + " " + mode(player.getGamemode(), player.getDeaths()) +
                 "\nLevels: ⬡ " + color(player.getProfessionStat().getCombat()) +
                 "§7 Ⓒ" + color(professionStat.getWoodcutting()) +
                 "§7 Ⓑ" + color(professionStat.getMining()) +
@@ -156,6 +157,10 @@ public class LookupSpirit {
     // Object structure: world, name, playtime, questCompleted,
     // [4]farming+xp, fishing+xp, woodcutting+xp, mining+xp, combat+xp, [14]iteratedProfessionsList,
     // mode, username, [17]deaths, mobsKilled, chestsOpened
+
+    private static String fcuc(String s) {
+        return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase(Locale.ROOT);
+    }
 
 
     private static String displayName(Player player) {

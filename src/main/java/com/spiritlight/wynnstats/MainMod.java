@@ -29,7 +29,7 @@ public class MainMod
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-        try {
+        /*try {
             ConfigSpirit.getConfig();
         } catch (IOException ignored) {
             try {
@@ -37,7 +37,7 @@ public class MainMod
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-        }
+        }*/
         ClientCommandHandler.instance.registerCommand(new statCommand());
     }
 
