@@ -109,7 +109,9 @@ public class statCommand extends CommandBase {
                     String[] nameArr = Arrays.copyOfRange(args, 2, args.length);
                     String guild = String.join(" ", nameArr);
                     pagingSpirit.fetchPage(MainMod.cachedGuildInfo.get(guild), Integer.parseInt(args[1]), guild);
-                } catch (NumberFormatException ignored) {}
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }
