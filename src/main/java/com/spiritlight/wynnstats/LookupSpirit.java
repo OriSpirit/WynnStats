@@ -21,7 +21,7 @@ public class LookupSpirit {
             GuildInfo info = data.getInfo();
             List<GuildStat> stat = data.getStats();
             Style style;
-            TextComponentString s = new TextComponentString("§r" + info.getGuildName() + " §7" + info.getPrefix() + "§7- §rLevel §a" + info.getLevel() + " §7(§r" + info.getTerritories() + "§7 territories)");
+            TextComponentString s = new TextComponentString("§r" + info.getGuildName() + " §7[" + info.getPrefix() + "] §7- §rLevel §a" + info.getLevel() + " §7(§r" + info.getTerritories() + "§7 territories)");
             style = s.getStyle();
             style.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("§6Click to open this guild's stat page!")))
                     .setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, guildFetchUrl + info.getGuildName()));
@@ -32,7 +32,7 @@ public class LookupSpirit {
                 );
                 style = str.getStyle();
                 TextComponentString msg = new TextComponentString(
-                        "§3" + guildStat.getPosition() + " §b" + guildStat.getPlayerName() + "\n" +
+                        "§3" + fcuc(guildStat.getPosition()) + " §b" + guildStat.getPlayerName() + "\n" +
                                 "§rJoined at " + guildStat.getJoinDate() + " §7- §rContributed §a" + guildStat.getContributedXP() + " §7XP" + "\n" +
                                 "§6Click to check this player's stats!"
                 );
@@ -158,7 +158,7 @@ public class LookupSpirit {
     // [4]farming+xp, fishing+xp, woodcutting+xp, mining+xp, combat+xp, [14]iteratedProfessionsList,
     // mode, username, [17]deaths, mobsKilled, chestsOpened
 
-    private static String fcuc(String s) {
+    public static String fcuc(String s) {
         return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase(Locale.ROOT);
     }
 
