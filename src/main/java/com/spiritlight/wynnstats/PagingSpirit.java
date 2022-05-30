@@ -14,17 +14,17 @@ public class PagingSpirit {
 
     public void fetchPage(@Nonnull List<TextComponentString> messages, int beginIndex, String guild) {
         final int size = messages.size();
-        final TextComponentString PAGE_BACK = new TextComponentString("§b[<]§r");
-        final TextComponentString PAGE_NEXT = new TextComponentString("§b[>]§r");
-        final TextComponentString PAGE_START = new TextComponentString("§7[<]§r");
-        final TextComponentString PAGE_END = new TextComponentString("§7[>]§r");
-        final TextComponentString SPLITTER = new TextComponentString(" --- " + beginIndex + "/" + size + " --- ");
-        ITextComponent end;
+        final int display = messages.size() / 10;
+        final TextComponentString PAGE_BACK = new TextComponentString("§b[<]§r --- " + beginIndex);
+        final TextComponentString PAGE_NEXT = new TextComponentString(display + " --- §b[>]§r");
+        final TextComponentString PAGE_START = new TextComponentString("§7[<]§r --- " + beginIndex);
+        final TextComponentString PAGE_END = new TextComponentString(display + " --- §7[>]§r");
+        final TextComponentString SPLITTER = new TextComponentString("/");
         PAGE_BACK.setStyle(new Style().setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/stat _showGuildPage " + (beginIndex - 10) + " " +  guild))
                 .setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("<< Last Page"))));
         PAGE_NEXT.setStyle(new Style().setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/stat _showGuildPage " + (beginIndex + 10) + " " + guild))
                 .setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("Next Page >>"))));
-        end = (beginIndex - MAX_INDEX > 1 ? PAGE_BACK : PAGE_START).appendSibling(SPLITTER).appendSibling((beginIndex + MAX_INDEX < size ? PAGE_NEXT : PAGE_END));
+        ITextComponent end = (beginIndex - MAX_INDEX > 1 ? PAGE_BACK : PAGE_START).appendSibling(SPLITTER).appendSibling((beginIndex + MAX_INDEX < size ? PAGE_NEXT : PAGE_END));
         AnnouncerSpirit.send(messages.get(0));
         for (int i = beginIndex; i < (Math.min(beginIndex + 10, size)); i++) {
             AnnouncerSpirit.send(messages.get(i));

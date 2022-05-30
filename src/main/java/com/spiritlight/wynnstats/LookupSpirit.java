@@ -28,7 +28,7 @@ public class LookupSpirit {
             message.add(s);
             for(GuildStat guildStat : stat) {
                 TextComponentString str = new TextComponentString(
-                        "§3[" + guildStat.getPosition() + "] §b" + guildStat.getPlayerName()
+                        "§3[" + fcuc(guildStat.getPosition()) + "] §b" + guildStat.getPlayerName()
                 );
                 style = str.getStyle();
                 TextComponentString msg = new TextComponentString(
