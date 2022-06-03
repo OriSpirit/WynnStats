@@ -24,7 +24,7 @@ public class PagingSpirit {
                 .setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("<< Last Page"))));
         PAGE_NEXT.setStyle(new Style().setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/stat _showGuildPage " + (beginIndex + 10) + " " + guild))
                 .setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("Next Page >>"))));
-        ITextComponent end = (beginIndex - MAX_INDEX > 1 ? PAGE_BACK : PAGE_START).appendSibling(SPLITTER).appendSibling((beginIndex + MAX_INDEX < size ? PAGE_NEXT : PAGE_END));
+        ITextComponent end = (beginIndex - MAX_INDEX >= 1 ? PAGE_BACK : PAGE_START).appendSibling(SPLITTER).appendSibling((beginIndex + MAX_INDEX < size ? PAGE_NEXT : PAGE_END));
         AnnouncerSpirit.send(messages.get(0));
         for (int i = beginIndex; i < (Math.min(beginIndex + 10, size)); i++) {
             AnnouncerSpirit.send(messages.get(i));

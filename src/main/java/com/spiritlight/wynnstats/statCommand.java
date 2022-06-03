@@ -72,6 +72,10 @@ public class statCommand extends CommandBase {
                     }
                     for (TextComponentString iTextComponents : message)
                         AnnouncerSpirit.send(iTextComponents);
+                }).exceptionally(e -> {
+                    AnnouncerSpirit.send("§cThis player doesn't exist.");
+                    e.printStackTrace();
+                    return null;
                 });
                 break;
             case "guild":
