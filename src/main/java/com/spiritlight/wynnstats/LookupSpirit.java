@@ -129,9 +129,9 @@ public class LookupSpirit {
         final RaidStat raid = player.getRaidStat();
         String s;
         try {
-            s = "[§" + (player.isPlayerOnline() ? "a" : "7") + "§l•§r] " + "§r" + player.getPlayerName() + " (" +  "§3" + fcuc(player.getBasicGuildStat().getGuildRank()) + " §rof §b" + player.getBasicGuildStat().getGuildIn() + "§r)";
+            s = "[§" + (player.isPlayerOnline() ? "a" : "c") + "§l•§r] " + "§r" + player.getPlayerName() + " (" +  "§3" + fcuc(player.getBasicGuildStat().getGuildRank()) + " §rof §b" + player.getBasicGuildStat().getGuildIn() + "§r)";
         } catch (NullPointerException ignored) {
-            s = "[§" + (player.isPlayerOnline() ? "a" : "7") + "§l•§r] " + "§r" + player.getPlayerName() + " (§7§oGuild-less§r)";
+            s = "[§" + (player.isPlayerOnline() ? "a" : "c") + "§l•§r] " + "§r" + player.getPlayerName() + " (§7§oGuildless§r)";
         }
         s+=
                 "\nClass ID: " + player.getClassName() + " " + mode(player.getGamemode(), player.getDeaths()) +

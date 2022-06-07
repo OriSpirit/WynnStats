@@ -49,7 +49,7 @@ public class JSONSpirit {
             int discoveries = accessClass.getInt("discoveries");
             int growth = calcGrowth(accessClass.getJSONObject("professions"));
             int dungeonsCompleted = accessClass.getJSONObject("dungeons").getInt("completed");
-            data.add(new Player(name, className, gamemode, !(world.equals("[Offline]")), deaths,
+            data.add(new Player(name, className, gamemode, deaths,
                     (String) world, playtime, mobs, growth, dungeonsCompleted, questCompleted, discoveries,
                     prof, raid, guildStat));
         }

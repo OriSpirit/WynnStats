@@ -1,5 +1,7 @@
 package com.spiritlight.wynnstats;
 
+import java.util.Objects;
+
 public class Player {
     private final String playerName;
     private final String className;
@@ -29,14 +31,14 @@ public class Player {
         return basicGuildStat;
     }
 
-    public Player(String playerName, String className, int gamemode, boolean playerOnline,
+    public Player(String playerName, String className, int gamemode,
                   int deaths, String worldAt, double playTime, int mobsKilled, int growthValue, int dungeonsCompleted, int questCompleted, int discoveries,
                   ProfessionStat professionStat, RaidStat raidStat, BasicGuildStat basicGuildStat) {
         this.playerName = playerName;
         this.className = className;
         this.gamemode = gamemode;
         this.deaths = deaths;
-        this.playerOnline = playerOnline;
+        this.playerOnline = !Objects.equals(worldAt, "Offline");
         this.worldAt = worldAt;
         this.playTime = playTime;
         this.mobsKilled = mobsKilled;
