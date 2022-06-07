@@ -127,10 +127,13 @@ public class LookupSpirit {
     private static String hoverOver(Player player) {
         final ProfessionStat professionStat = player.getProfessionStat();
         final RaidStat raid = player.getRaidStat();
-        // Diff Structure: 0playtime, questCompleted, 2fa+xp, 4fi+xp, 6wo+xp, 8mi+xp, 10co+xp, 12 growth, 13mobs, 14chests
-        // Object structure: 0world, name, 2playtime, questCompleted, [4]farming+xp, 6fishing+xp, 8woodcutting+xp, 10mining+xp
-        // 12combat+xp, [14]iteratedProfessionsList, mode, username, [17]deaths, mobsKilled, chestsOpened
-        return "[§" + (player.isPlayerOnline() ? "a" : "7") + "§l•§r] " + "§r" + player.getPlayerName() + " (" + (player.getBasicGuildStat().isInGuild() ? "§3" + fcuc(player.getBasicGuildStat().getGuildRank()) + " §rof §b" + player.getBasicGuildStat().getGuildIn() : "§7§oNot in guild") + "§r)" +
+        String s;
+        try {
+            s = "[§" + (player.isPlayerOnline() ? "a" : "7") + "§l•§r] " + "§r" + player.getPlayerName() + " (" +  "§3" + fcuc(player.getBasicGuildStat().getGuildRank()) + " §rof §b" + player.getBasicGuildStat().getGuildIn() + "§r)";
+        } catch (NullPointerException ignored) {
+            s = "[§" + (player.isPlayerOnline() ? "a" : "7") + "§l•§r] " + "§r" + player.getPlayerName() + " (§7§oGuild-less§r)";
+        }
+        s+=
                 "\nClass ID: " + player.getClassName() + " " + mode(player.getGamemode(), player.getDeaths()) +
                 "\nLevels: ⬡ " + color(player.getProfessionStat().getCombat()) +
                 "§7 Ⓒ" + color(professionStat.getWoodcutting()) +
@@ -153,6 +156,7 @@ public class LookupSpirit {
                 "\n§2Nest of the Grootslangs §rRaids: " +
                 color(raid.getNotgRaids()) +
                 "\n§6Click to open " + player.getPlayerName() + "'s " + player.getClassName() + " stat page!";
+        return s;
     }
     // Object structure: world, name, playtime, questCompleted,
     // [4]farming+xp, fishing+xp, woodcutting+xp, mining+xp, combat+xp, [14]iteratedProfessionsList,

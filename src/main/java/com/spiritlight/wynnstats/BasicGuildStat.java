@@ -8,8 +8,8 @@ public class BasicGuildStat {
     private final boolean inGuild;
 
     public BasicGuildStat(Object guildIn, Object guildRank) {
-        this.guildIn = (guildIn == JSONObject.NULL ? null : (String)guildIn);
-        this.guildRank = (guildRank == JSONObject.NULL ? null : (String)guildRank);
+        this.guildIn = (guildIn == JSONObject.NULL || guildIn == null ? null : (String)guildIn);
+        this.guildRank = (guildRank == JSONObject.NULL || guildRank == null ? null : (String)guildRank);
         this.inGuild = (guildIn != null); // true if guild in is not null
     }
 

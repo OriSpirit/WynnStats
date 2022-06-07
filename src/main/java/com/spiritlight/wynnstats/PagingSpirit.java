@@ -15,9 +15,10 @@ public class PagingSpirit {
     public void fetchPage(@Nonnull List<TextComponentString> messages, int beginIndex, String guild) {
         final int size = messages.size();
         final int display = messages.size() / 10;
-        final TextComponentString PAGE_BACK = new TextComponentString("§b[<]§r --- " + beginIndex);
+        final int pageNum = beginIndex / 10;
+        final TextComponentString PAGE_BACK = new TextComponentString("§b[<]§r --- " + pageNum+1);
         final TextComponentString PAGE_NEXT = new TextComponentString(display + " --- §b[>]§r");
-        final TextComponentString PAGE_START = new TextComponentString("§7[<]§r --- " + beginIndex);
+        final TextComponentString PAGE_START = new TextComponentString("§7[<]§r --- " + pageNum+1);
         final TextComponentString PAGE_END = new TextComponentString(display + " --- §7[>]§r");
         final TextComponentString SPLITTER = new TextComponentString("/");
         PAGE_BACK.setStyle(new Style().setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/stat _showGuildPage " + (beginIndex - 10) + " " +  guild))
